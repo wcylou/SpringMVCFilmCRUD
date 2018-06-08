@@ -20,10 +20,10 @@ public class FilmController {
 		return dao;
 	}
 
-	@RequestMapping(path="addfilm.do", method = RequestMethod.GET)
-	public ModelAndView getStateDataByName(Film film) {
+	@RequestMapping(path="addfilm.do", method = RequestMethod.POST)
+	public ModelAndView addFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/filmadded.jsp");
+		mv.setViewName("WEB-INF/addfilm.jsp");
 		mv.addObject(film);
 		return mv;
 	}
