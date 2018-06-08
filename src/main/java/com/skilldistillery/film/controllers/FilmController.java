@@ -27,5 +27,11 @@ public class FilmController {
 		mv.addObject(film);
 		return mv;
 	}
+	@RequestMapping(path="filmadded.do", method = RequestMethod.POST)
+	public ModelAndView filmadded(Film film) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/filmadded.jsp");
+		return mv;
+	}
 	
 }
