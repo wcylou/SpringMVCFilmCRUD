@@ -1,0 +1,11 @@
+html, body {
+	color: red;
+	text-align: left;
+	background: url(joker.jpg);
+	height: 400px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	font-family: futura;
+}
