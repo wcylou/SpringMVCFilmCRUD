@@ -21,18 +21,9 @@ public class Film {
 	private List<Actor> actors;
 	private Language language;
 	private StringBuilder actorList;
-	private String categories;
+	private List<String> categories;
+	private List<Inventory>inventoryItems;
 
-	public Film(String categories) throws SQLException {
-		super();
-		this.setCategories(categories);
-	}
-
-	public StringBuilder filmCategoriesReturned() {
-		StringBuilder filmCategory = new StringBuilder();
-		filmCategory.append(categories);
-		return filmCategory;
-	}
 
 	public Film(String title, int releaseYear, String description, String rating, Language language, List<Actor> actors)
 			throws SQLException {
@@ -206,6 +197,29 @@ public class Film {
 		this.actors = actors;
 	}
 
+
+	public Film(int id, String title, String description, int releaseYear, int languageId,
+			int rentalDuration, double rentalRate, int length, double replacementCost, String rating,
+			String specialFeatures, List<Actor> actors, Language language, List<String> categories,
+			List<Inventory> inventoryItems) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.languageId = languageId;
+		this.rentalDuration = rentalDuration;
+		this.rentalRate = rentalRate;
+		this.length = length;
+		this.replacementCost = replacementCost;
+		this.rating = rating;
+		this.specialFeatures = specialFeatures;
+		this.language = language;
+		this.actors = actors;
+		this.categories = categories;
+		this.inventoryItems = inventoryItems;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -352,16 +366,29 @@ public class Film {
 		return builder;
 	}
 
-	public String getCategories() {
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+
+	public List<String> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(String categories) {
+	public void setCategories(List<String> categories) {
 		this.categories = categories;
 	}
 
-	public String retrieveCategories() {
-		return null;
+	public List<Inventory> getInventoryItems() {
+		return inventoryItems;
 	}
+
+	public void setInventoryItems(List<Inventory> inventoryItems) {
+		this.inventoryItems = inventoryItems;
+	}
+
 
 }

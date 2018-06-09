@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
-import com.skilldistillery.film.entities.FilmInventory;
+import com.skilldistillery.film.entities.Inventory;
 import com.skilldistillery.film.entities.Language;
 
 public interface DatabaseAccessor{
@@ -15,9 +15,9 @@ public interface DatabaseAccessor{
   public List<Film> getFilmBySearchTerm(String searchTerm);
   public Language getLanguageOfFilm(int filmId);
   public Film getAllFilmDetails(int filmId);
-  public List<FilmInventory> getFilmInventory(int filmId);
   public Film addFilm(Film film);
   public boolean deleteFilm(Film film);
-  public Film getFilmCategories(int filmId);
   public Actor addActor(Actor actor);
+  public List<Inventory> getInventoryFilms(int filmId);
+  public List<String> getCategoriesByFilm(int filmId);
 }

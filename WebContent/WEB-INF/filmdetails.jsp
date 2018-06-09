@@ -44,6 +44,9 @@
 				<td>Actors: <c:out value="${film.actors}" />
 				<td><br>
 				<td>Categories: <c:out value="${film.categories}" />
+				<td><br>
+				<td><br>
+				<td>Inventory: <c:out value="${film.inventoryItems}" />
 				<td><br> <br>
 			</c:forEach>
 		</div>

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
-import com.skilldistillery.film.entities.FilmInventory;
+import com.skilldistillery.film.entities.Inventory;
 import com.skilldistillery.film.entities.Language;
 
 @Component
@@ -96,9 +96,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String specialFeatures = filmResult.getString(11);
 				Language language = getLanguageOfFilm(id);
 				List<Actor> actors = getActorsByFilmId(id);
+				List<String> categories = getCategoriesByFilm(id);
+				List<Inventory> inventory = getInventoryFilms(id);
 				// StringBuilder actorList = actor.actorsListed(actors);
 				filmFull = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate, length,
-						replacementCost, rating, specialFeatures, language, actors);
+						replacementCost, rating, specialFeatures, actors,language, categories, inventory);
 				films.add(filmFull);
 			}
 			filmResult.close();
@@ -218,45 +220,15 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 
 	@Override
-	public Film getFilmCategories(int filmId) {
-		Film film = null;
-		try {
-			Connection conn = DriverManager.getConnection(URL, "student", "student");
-			String sql = " SELECT cat.name FROM film f JOIN film_category fc ON fc.film_id = f.id JOIN category cat ON fc.category_id = cat.id WHERE f.id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
+	public List<String> getCategoriesByFilm(int filmId) {
+		String sql = "select c.name from film_category fc join category c on c.id = fc.category_id where fc.film_id = ?";
+		List<String> categories = new ArrayList<>();
+		try (Connection conn = DriverManager.getConnection(URL, "student", "student");
+				PreparedStatement stmt = conn.prepareStatement(sql);) {
 			stmt.setInt(1, filmId);
-			ResultSet filmCategories = stmt.executeQuery();
-			if (filmCategories.next()) {
-				String categories = filmCategories.getString(1);
-				film = new Film(categories);
-			}
-			filmCategories.close();
-			stmt.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return film;
-	}
-
-	@Override
-	public List<FilmInventory> getFilmInventory(int filmIdNum) {
-		List<FilmInventory> filmInventory = new ArrayList<>();
-		try {
-			Connection conn = DriverManager.getConnection(URL, "student", "student");
-			String sql = "SELECT id, film_id, store_id, media_condition, last_update from inventory_item where film_id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, filmIdNum);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt(1);
-				int filmId = rs.getInt(2);
-				int storeId = rs.getInt(3);
-				String mediaCondition = rs.getString(4);
-				String lastUpdate = rs.getString(5);
-
-				FilmInventory fi = new FilmInventory(id, filmId, storeId, mediaCondition, lastUpdate);
-				filmInventory.add(fi);
+				categories.add(rs.getString(1));
 			}
 			rs.close();
 			stmt.close();
@@ -264,7 +236,30 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return filmInventory;
+		return categories;
+	}
+
+	@Override
+	public List<Inventory> getInventoryFilms(int filmId) {
+		String sql = "select i.id, i.media_condition from film f join inventory_item i on i.film_id = f.id where f.id = ?";
+		List<Inventory> inventoryItems = new ArrayList<>();
+		try (Connection conn = DriverManager.getConnection(URL, "student", "student");
+				PreparedStatement stmt = conn.prepareStatement(sql);) {
+			stmt.setInt(1, filmId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				int iD = rs.getInt(1);
+				String mediaCondition = rs.getString(2);
+				Inventory inventory = new Inventory(iD, mediaCondition);
+				inventoryItems.add(inventory);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return inventoryItems;
 	}
 
 	public Film addFilm(Film film) {
