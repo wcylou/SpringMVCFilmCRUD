@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -35,7 +36,7 @@
 				<td><br>
 				<td>Rental Rate: <c:out value="${film.rentalRate}" />
 				<td><br>
-				<td>Length: <c:out value="${film.length}" />
+				<td>Length: <c:out value="${film.length}" />ss
 				<td><br>
 				<td>Replacement Cost: <c:out value="${film.replacementCost}" />
 				<td><br>
@@ -47,6 +48,13 @@
 				<td><br>
 				<td><br>
 				<td>Inventory: <c:out value="${film.inventoryItems}" />
+				<td><br> <br>
+				<td>
+    <form action="updatefilm.do" method="POST">
+        <input type="submit" value="Update" />
+        <input type="hidden" name="film" value="${film}"/>
+    </form>
+</td>
 				<td><br> <br>
 			</c:forEach>
 		</div>

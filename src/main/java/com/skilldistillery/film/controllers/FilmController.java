@@ -1,11 +1,11 @@
 package com.skilldistillery.film.controllers;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,8 +48,25 @@ public class FilmController {
 			List<Film> films = new ArrayList<>();
 			films.add(film);
 			redir.addFlashAttribute("filmsbyid", films); // add "state" to model for next request
+			redir.addFlashAttribute("film", film);
 		return "redirect:filmcreated.do";
 	}
+	@RequestMapping(path = "updatefilm.do", method = RequestMethod.POST)
+	public ModelAndView updateFilm(Film film) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject(film);
+		mv.setViewName("WEB-INF/updatefilm.jsp"); // redirect to new mapping
+		return mv;
+	}
+	@RequestMapping(path = "updatefilmdetails.do", method = RequestMethod.POST)
+	public String updateFilmDetails(Film film, RedirectAttributes redir) {
+		dao.updateFilm(film);
+		List<Film> films = new ArrayList<>();
+		films.add(film);
+		redir.addFlashAttribute("filmsbyid", films); // add "state" to model for next request
+		return "redirect:filmcreated.do";
+	}
+
 	@RequestMapping(path = "filmcreated.do", // mapping to handle redirect
 			method = RequestMethod.GET) // "state" is already in model for
 	public ModelAndView created() {
