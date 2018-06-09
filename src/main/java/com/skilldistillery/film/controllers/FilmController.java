@@ -1,5 +1,9 @@
 package com.skilldistillery.film.controllers;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,14 +28,21 @@ public class FilmController {
 	public ModelAndView addFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/addfilm.jsp");
-		mv.addObject(film);
+		
+		List<Film> films = new ArrayList<>();
+		films.add(film);
+		mv.addObject(films);
 		return mv;
 	}
 	@RequestMapping(path="filmdetails.do", method = RequestMethod.POST)
-	public ModelAndView filmadded(Film film) {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/filmdetails.jsp");
-		return mv;
+	public String filmDetails(Film film) {
+		try {
+			dao.addFilm(film);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "WEB-INF/filmdetails.jsp";
 	}
 	
 }
