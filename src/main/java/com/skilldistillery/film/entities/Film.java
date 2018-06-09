@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.skilldistillery.film.database.DatabaseAccessorObject;
 
-
-
 public class Film {
 	DatabaseAccessorObject dao = new DatabaseAccessorObject();
 	private int id;

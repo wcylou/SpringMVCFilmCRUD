@@ -19,6 +19,14 @@ import com.skilldistillery.film.entities.Language;
 @Component
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid";
+    static {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Error loading mySql driver");
+            e.printStackTrace();
+        }
+    }
 
 	@Override
 	public List<Film> getFilmBySearchTerm(String searchTerm) throws SQLException {
@@ -51,8 +59,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 	@Override
 	// title, year, rating, and description are displayed when this is returned
-	public Film getFilmById(int filmId) throws SQLException {
-		Film film = null;
+	public List<Film> getFilmById(int filmId) throws SQLException {
+		List<Film> films = new ArrayList<>();
 		Film filmFull = null;
 		Connection conn = DriverManager.getConnection(URL, "student", "student");
 		String sql = "SELECT id, title, release_year, rating, description, language_id, rental_duration,"
@@ -79,15 +87,14 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			// StringBuilder actorList = actor.actorsListed(actors);
 			filmFull = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate, length,
 					replacementCost, rating, specialFeatures, language, actors);
-
+			films.add(filmFull);
 		}
 		filmResult.close();
 		stmt.close();
 		conn.close();
-		return filmFull;
-
+		return films;
 	}
-
+	
 	@Override
 	public Actor getActorById(int actorId) throws SQLException {
 		Actor actor = null;
@@ -229,14 +236,14 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return filmInventory;
 	}
 
-	@Override
-	public Film addFilm(Film film) throws SQLException {
+	public Film addFilm(Film film) {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(URL, "student", "student");
 			conn.setAutoCommit(false); // START TRANSACTION
-			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features) " 
-			                    + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+
+			String sql = "INSERT INTO film (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features) "
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
@@ -248,7 +255,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setDouble(8, film.getReplacementCost());
 			stmt.setString(9, film.getRating());
 			stmt.setString(10, film.getSpecialFeatures());
-			
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				ResultSet keys = stmt.getGeneratedKeys();
@@ -257,6 +263,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					film.setId(newFilmId);
 
 				}
+				System.out.println("Your film's ID is " + film.getId());
 			} else {
 				film = null;
 			}
@@ -270,7 +277,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error inserting film " + film);
+			throw new RuntimeException("Error inserting actor " + film);
 		}
 		return film;
 	}

@@ -16,7 +16,7 @@ import com.skilldistillery.film.entities.Film;
 @Controller
 public class FilmController {
 	// TODO : Autowire a StateDAO and create getters and setters
-	
+
 	@Autowired
 	private DatabaseAccessor dao;
 
@@ -24,17 +24,18 @@ public class FilmController {
 		return dao;
 	}
 
-	@RequestMapping(path="addfilm.do", method = RequestMethod.POST)
+	@RequestMapping(path = "addfilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/addfilm.jsp");
-		
+
 		List<Film> films = new ArrayList<>();
 		films.add(film);
 		mv.addObject(films);
 		return mv;
 	}
-	@RequestMapping(path="filmdetails.do", method = RequestMethod.POST)
+
+	@RequestMapping(path = "filmdetails.do", method = RequestMethod.POST)
 	public String filmDetails(Film film) {
 		try {
 			dao.addFilm(film);
@@ -44,5 +45,20 @@ public class FilmController {
 		}
 		return "WEB-INF/filmdetails.jsp";
 	}
-	
+
+	@RequestMapping(path = "searchfilmbyid.do", method = RequestMethod.GET)
+	public ModelAndView filmDetailsByID() {
+		ModelAndView mv = new ModelAndView();
+		List<Film> films;
+		mv.setViewName("WEB-INF/filmdetails.jsp");
+		try {
+			films = dao.getFilmById(10);
+			mv.addObject("filmsbyid", films);
+			System.out.println(films);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mv;
+	}
 }
