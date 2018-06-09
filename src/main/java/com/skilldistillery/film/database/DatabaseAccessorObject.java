@@ -19,41 +19,52 @@ import com.skilldistillery.film.entities.Language;
 @Component
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid";
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.err.println("Error loading mySql driver");
-            e.printStackTrace();
-        }
-    }
+	static {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.err.println("Error loading mySql driver");
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public List<Film> getFilmBySearchTerm(String searchTerm) throws SQLException {
 		List<Film> films = new ArrayList<>();
-		Connection conn = DriverManager.getConnection(URL, "student", "student");
-		String sqltext = "SELECT id, title, release_year, rating, description FROM film WHERE title like ?";
-		PreparedStatement stmt = conn.prepareStatement(sqltext);
-		stmt.setString(1, "%" + searchTerm + "%");
-		ResultSet searchResult = stmt.executeQuery();
-		while (searchResult.next()) {
-			Actor actor = new Actor();
-			int id = searchResult.getInt(1);
-			String title = searchResult.getString(2);
-			int releaseYear = searchResult.getInt(3);
-			String rating = searchResult.getString(4);
-			String description = searchResult.getString(5);
-			Language language = getLanguageOfFilm(id);
-			List<Actor> actors = getActorsByFilmId(id);
-			StringBuilder actorList = actor.actorsListed(actors);
+		String sql = "select f.id, f.title, f.description, f.release_year, f.language_id, f.rental_duration, f.rental_rate, f.length, f.replacement_cost, f.rating, f.special_features, l.name from film f join language l on l.id = f.language_id where title like ? or description like ?";
+		int count = 0;
 
-			Film film = new Film(title, releaseYear, description, rating, language, actors);
-
-			films.add(film);
+		try (Connection conn = DriverManager.getConnection(URL, "student", "student");
+				PreparedStatement stmt = conn.prepareStatement(sql);) {
+			stmt.setString(1, "%" + searchTerm + "%");
+			stmt.setString(2, "%" + searchTerm + "%");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Film film = new Film();
+				film.setId(rs.getInt(1));
+				film.setTitle(rs.getString(2));
+				film.setDescription(rs.getString(3));
+				film.setReleaseYear(rs.getInt(4));
+				film.setLanguageId(rs.getInt(5));
+				film.setRentalDuration(rs.getInt(6));
+				film.setRentalRate(rs.getDouble(7));
+				film.setLength(rs.getInt(8));
+				film.setReplacementCost(rs.getDouble(9));
+				film.setRating(rs.getString(10));
+				film.setSpecialFeatures(rs.getString(11));
+				film.setActors(getActorsByFilmId(rs.getInt(1)));
+				films.addAll(getFilmById(rs.getInt(1)));
+				count++;
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+			System.out.println(
+					"\nThere are " + count + " films matching " + searchTerm + " in the title and/or description.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		searchResult.close();
-		stmt.close();
-		conn.close();
 		return films;
 	}
 
@@ -94,7 +105,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		conn.close();
 		return films;
 	}
-	
+
 	@Override
 	public Actor getActorById(int actorId) throws SQLException {
 		Actor actor = null;
@@ -288,38 +299,38 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			conn = DriverManager.getConnection(URL, "student", "student");
 			conn.setAutoCommit(false); // START TRANSACTION
-			
+
 			// delete the child from film_actor
 			String sql = "DELETE FROM film_actor WHERE film_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
 			int updateCount = stmt.executeUpdate();
-			
+
 			// delete the child from film_category
 			sql = "DELETE FROM film_category WHERE film_id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
 			updateCount = stmt.executeUpdate();
-			
+
 			// delete the child from rental through inventory_item
 			sql = "DELETE r FROM rental r JOIN inventory_item i ON i.id = r.inventory_id WHERE i.film_id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
 			updateCount = stmt.executeUpdate();
-			
+
 			// delete the child from inventory_item
 			sql = "DELETE FROM inventory_item WHERE film_id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
 			updateCount = stmt.executeUpdate();
-			
+
 			// finally, delete the film from the parent class of "film"
 			sql = "DELETE FROM film WHERE id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
 			updateCount = stmt.executeUpdate();
 			conn.commit(); // COMMIT TRANSACTION
-			
+
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {
@@ -334,4 +345,42 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return true;
 	}
 
+	@Override
+	public Actor addActor(Actor actor) throws SQLException {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, "student", "student");
+			conn.setAutoCommit(false); // START TRANSACTION
+
+			String sql = "INSERT INTO actor (first_name, last_name) VALUES (?, ?)";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, actor.getFirstName());
+				stmt.setString(2, actor.getLastName());
+			int updateCount = stmt.executeUpdate();
+			System.out.println(updateCount);
+			if (updateCount == 1) {
+				ResultSet keys = stmt.getGeneratedKeys();
+				if (keys.next()) {
+					int newActorId = keys.getInt(1);
+					actor.setId(newActorId);
+
+				}
+				System.out.println("Your Actor ID is " + actor.getId());
+			} else {
+				actor = null;
+			}
+			conn.commit(); // COMMIT TRANSACTION
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			throw new RuntimeException("Error inserting actor " + actor);
+		}
+		return actor;
+	}
 }

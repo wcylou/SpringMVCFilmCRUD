@@ -6,11 +6,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <title>Film</title>
 </head>
 <body>
     <c:forEach items="${filmsbyid}" var="film">
-          <td><c:out value="${film}" /><td>
+          <td>Film ID: <c:out value="${film.id}" /><td><br>
+          <td>Title: <c:out value="${film.title}" /><td><br>
+          <td>Description: <c:out value="${film.description}" /><td><br>
+          <td>Release Year: <c:out value="${film.releaseYear}" /><td><br>
+          <td>Language ID: <c:out value="${film.languageId}" /><td><br>
+          <td>Rental Duration: <c:out value="${film.rentalDuration}" /><td><br>
+          <td>Rental Rate: <c:out value="${film.rentalRate}" /><td><br>
+          <td>Length: <c:out value="${film.length}" /><td><br>
+          <td>Replacement Cost: <c:out value="${film.replacementCost}" /><td><br>
+          <td>Rating: <c:out value="${film.rating}" /><td><br>
+          <td>Actors: <c:out value="${film.actors}" /><td><br>
+          <td>Categories: <c:out value="${film.categories}" /><td><br>
+          <br>
     </c:forEach>
     
 </body>
