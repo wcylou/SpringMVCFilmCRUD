@@ -17,8 +17,6 @@ import com.skilldistillery.film.entities.Film;
 
 @Controller
 public class FilmController {
-	// TODO : Autowire a StateDAO and create getters and setters
-
 	@Autowired
 	private DatabaseAccessor dao;
 
@@ -36,7 +34,7 @@ public class FilmController {
 		mv.addObject(films);
 		return mv;
 	}
-
+	
 	@RequestMapping(path = "filmdetails.do", method = RequestMethod.POST)
 	public String filmDetails(Film film) {
 		try {
