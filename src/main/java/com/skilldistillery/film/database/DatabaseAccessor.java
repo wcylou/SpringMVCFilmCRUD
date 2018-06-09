@@ -9,15 +9,15 @@ import com.skilldistillery.film.entities.FilmInventory;
 import com.skilldistillery.film.entities.Language;
 
 public interface DatabaseAccessor{
-  public List<Film> getFilmById(int filmId) throws SQLException;
-  public Actor getActorById(int actorId) throws SQLException;
-  public List<Actor> getActorsByFilmId(int filmId) throws SQLException;
-  public List<Film> getFilmBySearchTerm(String searchTerm) throws SQLException;
-  public Language getLanguageOfFilm(int filmId) throws SQLException;
-  public Film getAllFilmDetails(int filmId) throws SQLException;
-  public List<FilmInventory> getFilmInventory(int filmId) throws SQLException;
-  public Film addFilm(Film film) throws SQLException;
-  public boolean deleteFilm(Film film) throws SQLException;
-  public Film getFilmCategories(int filmId) throws SQLException;
-  public Actor addActor(Actor actor) throws SQLException;
+  public List<Film> getFilmById(int filmId);
+  public Actor getActorById(int actorId);
+  public List<Actor> getActorsByFilmId(int filmId);
+  public List<Film> getFilmBySearchTerm(String searchTerm);
+  public Language getLanguageOfFilm(int filmId);
+  public Film getAllFilmDetails(int filmId);
+  public List<FilmInventory> getFilmInventory(int filmId);
+  public Film addFilm(Film film);
+  public boolean deleteFilm(Film film);
+  public Film getFilmCategories(int filmId);
+  public Actor addActor(Actor actor);
 }
