@@ -14,19 +14,19 @@
   <h1>Menu</h1>
 	<form action="searchfilmbyid.do" method="GET">
 		Search for Film by ID 
-		<input type="text" id="searchfilmbyid" name="filmid" placeholder="Type in Film ID" /> 
+		<input type="number" id="searchfilmbyid" name="filmid" placeholder="Type in Film ID" required/> 
 		<input type="submit" value="Submit" />
 	</form>
 	<br>
 	<form action="searchfilmbykeyword.do" method="GET">
 		Search for Film by Keyword
-		<input type="text" id="searchfilmbykeyword" name="keyword" placeholder="Type in Film keyword" /> 
+		<input type="text" id="searchfilmbykeyword" name="keyword" placeholder="Type in Film keyword" required/> 
 		<input type="submit" value="Submit" />
 	</form>
 	<br>
 	<form action="searchactorbyid.do" method="GET">
 		Search for Actor by ID 
-		<input type="text" id="searchactorbyid" name="actorid" placeholder="Type in Actor ID" /> 
+		<input type="number" id="searchactorbyid" name="actorid" placeholder="Type in Actor ID" required/> 
 		<input type="submit" value="Submit" />
 	</form>
 	<br>

@@ -17,6 +17,12 @@
 <title>Actor Details</title>
 </head>
 <body>
+	<c:if test="${empty actorsbyid }">
+					<td>No Actors Found Matching that Criteria</td>
+					<form:form action="intro.html" method="GET">
+						<input type="submit" value="Back" />
+					</form:form>
+				</c:if>
 	<c:forEach items="${actorsbyid}" var="actor">
 		<td>Actor ID: <c:out value="${actor.id}" />
 		<td><br>

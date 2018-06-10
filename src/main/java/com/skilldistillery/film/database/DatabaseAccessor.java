@@ -10,7 +10,7 @@ import com.skilldistillery.film.entities.Language;
 
 public interface DatabaseAccessor{
   public List<Film> getFilmById(int filmId);
-  public Actor getActorById(int actorId);
+  public List<Actor> getActorById(int actorId);
   public List<Actor> getActorsByFilmId(int filmId);
   public List<Film> getFilmBySearchTerm(String searchTerm);
   public Language getLanguageOfFilm(int filmId);
