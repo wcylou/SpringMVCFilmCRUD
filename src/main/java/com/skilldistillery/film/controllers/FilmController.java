@@ -173,11 +173,8 @@ public class FilmController {
     
     @RequestMapping(path = "deleteactor.do", method = RequestMethod.GET)
     public String deleteActor(int actorid) {
-    	List <Actor> actors = new ArrayList<>();
-    	System.out.println();
-    	actors.add(dao.getActorById(actorid));
-    	System.out.println(actors);
-    	Actor actor = actors.get(0);
+    	System.out.println(actorid);
+    	dao.deleteActor(dao.getActorById(actorid));
     	
     	return "intro.html";
     }

@@ -22,4 +22,5 @@ public interface DatabaseAccessor{
   public List<Inventory> getInventoryFilms(int filmId);
   public List<String> getCategoriesByFilm(int filmId);
   public Actor updateActor(Actor actor, int actorId);
+boolean deleteActor(Actor actor);
 }
