@@ -61,7 +61,7 @@
         <input type="hidden" name="filmid" value="${film.id}"/>
         <input type="submit" value="Delete" />
     </form:form>
-    <form:form action="intro.html">
+    <form:form action="intro.html" method="GET">
         <input type="submit" value="Back" />
     </form:form>
 </td>

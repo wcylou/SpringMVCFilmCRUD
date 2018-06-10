@@ -27,7 +27,6 @@
         Replacement Cost <input type="number" name="replacementCost" step="any" value="${filmupdate.replacementCost}"/><br> 
         Rating <input type="text" name="rating" value="${filmupdate.rating}"/><br> 
         Special Features <input type="text" name="specialFeatures" value="${filmupdate.specialFeatures}"/><br> 
-        
         <input type="hidden" name="filmid" value="${filmupdate.id}"/>
         <input type="submit" value="Update" />
     </form>
