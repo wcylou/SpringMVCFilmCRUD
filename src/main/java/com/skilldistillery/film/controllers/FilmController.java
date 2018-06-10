@@ -148,14 +148,25 @@ public class FilmController {
         return mv;
     }
 
+    @RequestMapping(path = "updateactor.do", method = RequestMethod.GET)
+    public ModelAndView updateActor(@RequestParam(name = "actorid")  int actorId) {
+    	ModelAndView mv = new ModelAndView();
+    	List <Actor> actors = new ArrayList<>();
+    	System.out.println();
+    	actors.add(dao.getActorById(actorId));
+    	Actor actor= actors.get(0);
+    	mv.addObject("actorupdate", actor);
+    	mv.setViewName("WEB-INF/updateactor.jsp"); // redirect to new mapping
+    	return mv;
+    }
     @RequestMapping(path = "updateactordetails.do", method = RequestMethod.POST)
     public ModelAndView updateActorDetails(Actor actor, @RequestParam(name = "actorid") int actorId) {
     	ModelAndView mv = new ModelAndView();
     	System.out.println(actorId);
     	System.out.println(actor);
-    	List <Film> films = new ArrayList<>();
-    	//films.add(dao.updateActor(actor, actorId));
-    	mv.addObject("update", actor);
+    	List <Actor> actors = new ArrayList<>();
+    	actors.add(dao.updateActor(actor, actorId));
+    	mv.addObject("actorsbyid", actors);
     	mv.setViewName("WEB-INF/actordetails.jsp");
     	return mv;
     }

@@ -352,6 +352,35 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return film;
 	}
 
+	public Actor updateActor(Actor actor, int actorId) {
+		Connection conn = null;
+		try {
+			actor.setId(actorId);
+			conn = DriverManager.getConnection(URL, "student", "student");
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql = "UPDATE actor SET first_name=?, last_name=? WHERE id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, actor.getFirstName());
+			stmt.setString(2, actor.getLastName());
+			stmt.setInt(3, actor.getId());
+			System.out.println(stmt);
+			int updateCount = stmt.executeUpdate();
+
+			conn.commit(); // COMMIT TRANSACTION
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			throw new RuntimeException("Error inserting actor " + actor);
+		}
+		return actor;
+	}
+
 	@Override
 	public boolean deleteFilm(Film film) {
 		Connection conn = null;
