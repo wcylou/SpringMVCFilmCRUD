@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.skilldistillery.film.entities.Actor;
 import com.skilldistillery.film.entities.Film;
 import com.skilldistillery.film.entities.Inventory;
@@ -113,7 +114,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	}
 
 	@Override
-	public Actor getActorById(int actorId) {
+	public List<Actor> getActorById(int actorId) {
+		List<Actor> actors = new ArrayList<>();
 		Actor actor = null;
 		try {
 			Connection conn = DriverManager.getConnection(URL, "student", "student");
@@ -126,6 +128,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				actor.setId(actorResult.getInt(1));
 				actor.setFirstName(actorResult.getString(2));
 				actor.setLastName(actorResult.getString(3));
+				actors.add(actor);
 			}
 			actorResult.close();
 			stmt.close();
@@ -133,7 +136,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return actor;
+		return actors;
 	}
 
 	@Override

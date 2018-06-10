@@ -3,10 +3,9 @@ package com.skilldistillery.film.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,7 +101,7 @@ public class FilmController {
     	ModelAndView mv = new ModelAndView();
     	List<Actor> actors = new ArrayList<>();
     	mv.setViewName("WEB-INF/actordetails.jsp");
-    	actors.add(dao.getActorById(actorid));
+    	actors = dao.getActorById(actorid);
     	mv.addObject("actorsbyid", actors);
     	System.out.println(actors);
     	return mv;
@@ -153,7 +152,7 @@ public class FilmController {
     	ModelAndView mv = new ModelAndView();
     	List <Actor> actors = new ArrayList<>();
     	System.out.println();
-    	actors.add(dao.getActorById(actorId));
+    	actors = dao.getActorById(actorId);
     	Actor actor= actors.get(0);
     	mv.addObject("actorupdate", actor);
     	mv.setViewName("WEB-INF/updateactor.jsp"); // redirect to new mapping
@@ -174,7 +173,7 @@ public class FilmController {
     @RequestMapping(path = "deleteactor.do", method = RequestMethod.GET)
     public String deleteActor(int actorid) {
     	System.out.println(actorid);
-    	dao.deleteActor(dao.getActorById(actorid));
+    	dao.deleteActor(dao.getActorById(actorid).get(0));
     	
     	return "intro.html";
     }
