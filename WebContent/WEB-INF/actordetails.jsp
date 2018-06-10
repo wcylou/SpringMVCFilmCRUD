@@ -14,7 +14,7 @@
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="intro.css">
-<title>Add Actor</title>
+<title>Actor Details</title>
 </head>
 <body>
 	<c:forEach items="${actorsbyid}" var="actor">
