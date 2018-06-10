@@ -28,7 +28,7 @@
 				<input type="hidden" name="actorid" value="${actor.id}" />
 				<input type="submit" value="Update" />
 			</form:form> <form:form action="deleteactor.do" method="GET">
-				<input type="hidden" name="filmid" value="${actor.id}" />
+				<input type="hidden" name="actorid" value="${actor.id}" />
 				<input type="submit" value="Delete" />
 			</form:form>
 	<form:form action="intro.html">
