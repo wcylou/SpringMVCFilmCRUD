@@ -313,7 +313,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			conn = DriverManager.getConnection(URL, "student", "student");
 			conn.setAutoCommit(false); // START TRANSACTION
-
+			film.setId(filmId);
 			String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id=?, rental_duration=?, rental_rate=?, length=?, replacement_cost=?"
 					+ ", rating=?, special_features=? WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -330,6 +330,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setInt(11, filmId);
 			System.out.println(stmt);
 			int updateCount = stmt.executeUpdate();
+			film.setActors(getActorsByFilmId(filmId));
+			film.setCategories(getCategoriesByFilm(filmId));
+			film.setInventoryItems(getInventoryFilms(filmId));
 			System.out.println(updateCount);
 			System.out.println(film);
 			System.out.println("Your film's ID is " + filmId);

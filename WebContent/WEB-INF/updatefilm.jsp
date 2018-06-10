@@ -17,6 +17,7 @@
 <body>
 <div class = "container">
     <form action="updatefilmdetails.do" method="POST">
+        Film ID <input type= "text" name="filmid" value="${filmupdate.id}" readonly/>
         Title <input type="text" type="text" name = "title" value="${filmupdate.title}"/> <br> 
         Description <input type="text" id ="description" name ="description" type="text" value="${filmupdate.description}" /><br> 
         Release Year <input type="number" name="releaseYear" value="${filmupdate.releaseYear}"/><br> 
@@ -28,7 +29,6 @@
         Rating <input type="text" name="rating" value="${filmupdate.rating}"/><br> 
         Special Features <input type="text" name="specialFeatures" value="${filmupdate.specialFeatures}"/><br> 
         
-        <input type="hidden" name="filmid" value="${filmupdate.id}"/>
         <input type="submit" value="Update" />
     </form>
       <form:form action="intro.html">

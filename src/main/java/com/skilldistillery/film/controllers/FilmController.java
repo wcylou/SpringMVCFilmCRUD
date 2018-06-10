@@ -60,7 +60,6 @@ public class FilmController {
     public ModelAndView updateFilmDetails(Film film, @RequestParam(name = "filmid") int filmId) {
         ModelAndView mv = new ModelAndView();
         System.out.println(filmId);
-        System.out.println(film);
         List <Film> films = new ArrayList<>();
         films.add(dao.updateFilm(film, filmId));
         mv.addObject("update", films);
