@@ -25,16 +25,18 @@
 	</form>
 	<br>
 	<form action="addfilm.do" method="POST">
-		Add Film <input type="submit" value="addfilm" />
+		Add Film <input type="submit" value="Add Film" />
 	</form>
 	<br>
 	<form action="addactor.do" method="POST">
-		Add Actor <input type="submit" value="addactor" />
+		Add Actor <input type="submit" value="Add Actor" />
 	</form>
 	<br>
-	<form action="updateactor.do" method="GET">
-		Update Actor <input type="submit" value="updateactor.do" />
-	</form>
+	<form action="deletefilm.do" method="GET">
+		Delete Film by ID
+		<input type="text" id="deletefilmbyid" name="filmid" placeholder="Type in Film ID" /> 
+		<input type="submit" value="Submit" />
+	</form>	
 	<br>
    <a href = "finish.html"> <button type="button" class="btn btn-secondary btn-lg btn-outline-success">Finish</button>
 	<br>

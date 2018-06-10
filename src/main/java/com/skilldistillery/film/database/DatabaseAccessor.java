@@ -16,7 +16,7 @@ public interface DatabaseAccessor{
   public Language getLanguageOfFilm(int filmId);
   public Film getAllFilmDetails(int filmId);
   public Film addFilm(Film film);
-  public Film updateFilm(Film film);
+  public Film updateFilm(Film film, int filmId);
   public boolean deleteFilm(Film film);
   public Actor addActor(Actor actor);
   public List<Inventory> getInventoryFilms(int filmId);
