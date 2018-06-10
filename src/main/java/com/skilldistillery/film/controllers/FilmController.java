@@ -58,7 +58,7 @@ public class FilmController {
 	public ModelAndView updateFilm(@RequestParam(name = "filmid")  int filmId) {
 		ModelAndView mv = new ModelAndView();
 		List <Film> films = new ArrayList<>();
-		System.out.println(filmId);
+		System.out.println();
 		films = dao.getFilmById(filmId);
 		System.out.println(films);
 		Film film = films.get(0);
@@ -79,6 +79,18 @@ public class FilmController {
 		return mv;
 	}
 	
+	@RequestMapping(path = "deletefilm.do", method = RequestMethod.GET)
+	public String deleteFilm(int filmid) {
+		List <Film> films = new ArrayList<>();
+		System.out.println();
+		films = dao.getFilmById(filmid);
+		System.out.println(films);
+		Film film = films.get(0);
+		dao.deleteFilm(film);
+		return "intro.html";
+	}
+	
+
 	@RequestMapping(path = "filmcreated.do", // mapping to handle redirect
 			method = RequestMethod.GET) // "state" is already in model for
 	public ModelAndView created() {
@@ -126,5 +138,6 @@ public class FilmController {
 			dao.addActor(actor);
 		return "WEB-INF/actordetails.jsp";
 	}
+
 
 }
