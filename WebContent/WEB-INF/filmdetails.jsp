@@ -50,9 +50,10 @@
 				<td>Inventory: <c:out value="${film.inventoryItems}" />
 				<td><br> <br>
 				<td>
+				
     <form action="updatefilm.do" method="POST">
         <input type="submit" value="Update" />
-        <input type="hidden" name="film" value="${film}"/>
+        <input type="hidden" name="filmid" value="${film.id}"/>
     </form>
 </td>
 				<td><br> <br>

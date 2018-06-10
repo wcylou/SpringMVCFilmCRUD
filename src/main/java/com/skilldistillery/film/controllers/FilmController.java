@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,17 +52,16 @@ public class FilmController {
 		return "redirect:filmcreated.do";
 	}
 	@RequestMapping(path = "updatefilm.do", method = RequestMethod.POST)
-	public ModelAndView updateFilm(Film film) {
+	public ModelAndView updateFilm(@RequestParam("filmid") String filmid) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject(film);
+		List<Film> films = dao.getFilmById(Integer.parseInt(filmid));
+		mv.addObject("filmsbyid", films);
 		mv.setViewName("WEB-INF/updatefilm.jsp"); // redirect to new mapping
 		return mv;
 	}
 	@RequestMapping(path = "updatefilmdetails.do", method = RequestMethod.POST)
-	public String updateFilmDetails(Film film, RedirectAttributes redir) {
-		dao.updateFilm(film);
-		List<Film> films = new ArrayList<>();
-		films.add(film);
+	public String updateFilmDetails(List<Film> films, RedirectAttributes redir) {
+		dao.updateFilm(films.get(0));
 		redir.addFlashAttribute("filmsbyid", films); // add "state" to model for next request
 		return "redirect:filmcreated.do";
 	}
