@@ -62,7 +62,7 @@ public class FilmController {
         System.out.println(filmId);
         List <Film> films = new ArrayList<>();
         films.add(dao.updateFilm(film, filmId));
-        mv.addObject("update", films);
+        mv.addObject("filmsbyid", films);
         mv.setViewName("WEB-INF/filmdetails.jsp");
         return mv;
     }
@@ -97,6 +97,16 @@ public class FilmController {
             System.out.println(films);
         return mv;
     }
+    @RequestMapping(path = "searchactorbyid.do", method = RequestMethod.GET)
+    public ModelAndView actorDetailsByID(int actorid) {
+    	ModelAndView mv = new ModelAndView();
+    	List<Actor> actors = new ArrayList<>();
+    	mv.setViewName("WEB-INF/actordetails.jsp");
+    	actors.add(dao.getActorById(actorid));
+    	mv.addObject("actorsbyid", actors);
+    	System.out.println(actors);
+    	return mv;
+    }
 
     @RequestMapping(path = "searchfilmbykeyword.do", method = RequestMethod.GET)
     public ModelAndView filmDetailsByKeyword(String keyword) {
@@ -122,10 +132,43 @@ public class FilmController {
     }
 
     @RequestMapping(path = "actordetails.do", method = RequestMethod.POST)
-    public String actorDetails(Actor actor) {
+    public String actorDetails(Actor actor, RedirectAttributes redir) {
             dao.addActor(actor);
-        return "WEB-INF/actordetails.jsp";
+            List<Actor> actors = new ArrayList<>();
+            actors.add(actor);
+            redir.addFlashAttribute("actorsbyid", actors);
+            redir.addFlashAttribute("actor", actor);
+        return "redirect:actorcreated.do";
+    }
+    @RequestMapping(path = "actorcreated.do", // mapping to handle redirect
+            method = RequestMethod.GET) // "state" is already in model for
+    public ModelAndView actorCreated() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("WEB-INF/actordetails.jsp");
+        return mv;
     }
 
+    @RequestMapping(path = "updateactordetails.do", method = RequestMethod.POST)
+    public ModelAndView updateActorDetails(Actor actor, @RequestParam(name = "actorid") int actorId) {
+    	ModelAndView mv = new ModelAndView();
+    	System.out.println(actorId);
+    	System.out.println(actor);
+    	List <Film> films = new ArrayList<>();
+    	//films.add(dao.updateActor(actor, actorId));
+    	mv.addObject("update", actor);
+    	mv.setViewName("WEB-INF/actordetails.jsp");
+    	return mv;
+    }
+    
+    @RequestMapping(path = "deleteactor.do", method = RequestMethod.GET)
+    public String deleteActor(int actorid) {
+    	List <Actor> actors = new ArrayList<>();
+    	System.out.println();
+    	actors.add(dao.getActorById(actorid));
+    	System.out.println(actors);
+    	Actor actor = actors.get(0);
+    	
+    	return "intro.html";
+    }
 
 }
