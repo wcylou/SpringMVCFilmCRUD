@@ -21,6 +21,9 @@
     <div class="container">
     <div class = "row">
         <div class="col-sm-6">
+        <c:if test="${empty filmsbyid }">
+        <td>No Films Found Matching that Criteria</td>
+        </c:if>
             <c:forEach items="${filmsbyid}" var="film">
                 <td>Film ID: <c:out value="${film.id}" />
                 <td><br>
@@ -53,6 +56,13 @@
     <form:form action="updatefilm.do" method="GET">
         <input type="hidden" name="filmid" value="${film.id}"/>
         <input type="submit" value="Update" />
+    </form:form>
+    <form:form action="deletefilm.do" method="GET">
+        <input type="hidden" name="filmid" value="${film.id}"/>
+        <input type="submit" value="Delete" />
+    </form:form>
+    <form:form action="intro.html">
+        <input type="submit" value="Back" />
     </form:form>
 </td>
                 <td><br> <br>
