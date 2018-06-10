@@ -36,7 +36,7 @@
 				<td><br>
 				<td>Rental Rate: <c:out value="${film.rentalRate}" />
 				<td><br>
-				<td>Length: <c:out value="${film.length}" />ss
+				<td>Length: <c:out value="${film.length}" />
 				<td><br>
 				<td>Replacement Cost: <c:out value="${film.replacementCost}" />
 				<td><br>
@@ -50,10 +50,10 @@
 				<td>Inventory: <c:out value="${film.inventoryItems}" />
 				<td><br> <br>
 				<td>
-    <form action="updatefilm.do" method="POST">
+    <form:form action="updatefilm.do" method="GET">
+        <input type="hidden" name="filmid" value="${film.id}"/>
         <input type="submit" value="Update" />
-        <input type="hidden" name="film" value="${film}"/>
-    </form>
+    </form:form>
 </td>
 				<td><br> <br>
 			</c:forEach>

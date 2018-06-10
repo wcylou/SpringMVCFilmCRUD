@@ -296,12 +296,15 @@ public class Film {
 		return actors;
 	}
 
+
+
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Film title = ").append(title).append("\nRelease year: ").append(releaseYear)
-				.append("\nRating: ").append(rating).append("\nDescription: ").append(description).append("\n");
-		return builder.toString();
+		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
+				+ ", languageId=" + languageId + ", rentalDuration=" + rentalDuration + ", rentalRate=" + rentalRate
+				+ ", length=" + length + ", replacementCost=" + replacementCost + ", rating=" + rating
+				+ ", specialFeatures=" + specialFeatures + ", actors=" + actors + ", categories=" + categories
+				+ ", inventoryItems=" + inventoryItems + "]";
 	}
 
 	public String byIdToString(Film film) { // title, year, rating, and description are displayed.

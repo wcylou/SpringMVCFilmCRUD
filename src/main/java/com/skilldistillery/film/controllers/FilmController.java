@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -51,22 +53,32 @@ public class FilmController {
 			redir.addFlashAttribute("film", film);
 		return "redirect:filmcreated.do";
 	}
-	@RequestMapping(path = "updatefilm.do", method = RequestMethod.POST)
-	public ModelAndView updateFilm(Film film) {
+	
+	@RequestMapping(path = "updatefilm.do", method = RequestMethod.GET)
+	public ModelAndView updateFilm(@RequestParam(name = "filmid")  int filmId) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject(film);
+		List <Film> films = new ArrayList<>();
+		System.out.println(filmId);
+		films = dao.getFilmById(filmId);
+		System.out.println(films);
+		Film film = films.get(0);
+		mv.addObject("filmupdate", film);
 		mv.setViewName("WEB-INF/updatefilm.jsp"); // redirect to new mapping
 		return mv;
 	}
+	
 	@RequestMapping(path = "updatefilmdetails.do", method = RequestMethod.POST)
-	public String updateFilmDetails(Film film, RedirectAttributes redir) {
-		dao.updateFilm(film);
-		List<Film> films = new ArrayList<>();
-		films.add(film);
-		redir.addFlashAttribute("filmsbyid", films); // add "state" to model for next request
-		return "redirect:filmcreated.do";
+	public ModelAndView updateFilmDetails(Film film, @RequestParam(name = "filmid") int filmId) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println(filmId);
+		System.out.println(film);
+		List <Film> films = new ArrayList<>();
+		films.add(dao.updateFilm(film, filmId));
+		mv.addObject("update", films);
+		mv.setViewName("WEB-INF/filmdetails.jsp");
+		return mv;
 	}
-
+	
 	@RequestMapping(path = "filmcreated.do", // mapping to handle redirect
 			method = RequestMethod.GET) // "state" is already in model for
 	public ModelAndView created() {
@@ -76,11 +88,11 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "searchfilmbyid.do", method = RequestMethod.GET)
-	public ModelAndView filmDetailsByID(String filmid) {
+	public ModelAndView filmDetailsByID(int filmid) {
 		ModelAndView mv = new ModelAndView();
 		List<Film> films = new ArrayList<>();
 		mv.setViewName("WEB-INF/filmdetails.jsp");
-			films = dao.getFilmById(Integer.parseInt(filmid));
+			films = dao.getFilmById(filmid);
 			mv.addObject("filmsbyid", films);
 			System.out.println(films);
 		return mv;

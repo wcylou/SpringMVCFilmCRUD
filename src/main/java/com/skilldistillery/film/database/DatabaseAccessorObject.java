@@ -308,7 +308,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return film;
 	}
 
-	public Film updateFilm(Film film) {
+	public Film updateFilm(Film film, int filmId) {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(URL, "student", "student");
@@ -327,12 +327,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			stmt.setDouble(8, film.getReplacementCost());
 			stmt.setString(9, film.getRating());
 			stmt.setString(10, film.getSpecialFeatures());
-			stmt.setInt(11, film.getId());
+			stmt.setInt(11, filmId);
 			System.out.println(stmt);
 			int updateCount = stmt.executeUpdate();
 			System.out.println(updateCount);
 			System.out.println(film);
-			System.out.println("Your film's ID is " + film.getId());
+			System.out.println("Your film's ID is " + filmId);
 
 			conn.commit(); // COMMIT TRANSACTION
 		} catch (SQLException sqle) {
