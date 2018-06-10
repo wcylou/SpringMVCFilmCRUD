@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- TODO: Add the @taglib for form -->
@@ -15,72 +15,24 @@
 <title>Update Film</title>
 </head>
 <body>
-<<<<<<< HEAD
-<c:forEach items="${filmsbyid}" var="film">
-	<form:form action="updatefilmdetails.do" method="POST" modelAttribute="film">
-		<form:label path="title">Title:</form:label>
-		<form:input path="title" value="${film.title}" />
-		<form:errors path="title" />
-		<br />
-		<form:label path="description">Description:</form:label>
-		<form:input path="description" value="${film.description}" />
-		<form:errors path="description" />
-		<br />
-		<form:label path="releaseYear">Release Year:</form:label>
-		<form:input path="releaseYear" value="${film.releaseYear}"/>
-		<form:errors path="releaseYear" />
-		<br />
-		<form:label path="languageId">Language ID (1 for English):</form:label>
-		<form:input path="languageId" value="${film.languageId}"/>
-		<form:errors path="languageId" />
-		<br />
-		<form:label path="rentalDuration">Rental Duration:</form:label>
-		<form:input path="rentalDuration" value="${film.rentalDuration}"/>
-		<form:errors path="rentalDuration" />
-		<br />
-		<form:label path="rentalRate">Rental Rate:</form:label>
-		<form:input path="rentalRate" value="${film.rentalRate}" />
-		<form:errors path="rentalRate" />
-		<br />
-		<form:label path="length">Length:</form:label>
-		<form:input path="length" value="${film.length}"/>
-		<form:errors path="length" />
-		<br />
-		<form:label path="replacementCost">Replacement Cost:</form:label>
-		<form:input path="replacementCost" value="${film.replacementCost}"/>
-		<form:errors path="replacementCost" />
-		<br />
-		<form:label path="rating">Rating:</form:label>
-		<form:input path="rating" value="${film.rating}"/>
-		<form:errors path="rating" />
-		<br />
-		<form:label path="specialFeatures">Special Features:</form:label>
-		<form:input path="specialFeatures" value="${film.specialFeatures}"/>
-		<form:errors path="specialFeatures" />
-		<input type="submit" value="Update Film" />
-	</form:form>
-				</c:forEach>
-	
-=======
 <div class = "container">
-	<form action="updatefilmdetails.do" method="POST">
-		Title <input type="text" type="text" name = "title" value="${filmupdate.title}"/> <br> 
-		Description <input type="text" id ="description" name ="description" type="text" value="${filmupdate.description}" /><br> 
-		Release Year <input type="number" name="releaseYear" value="${filmupdate.releaseYear}"/><br> 
-		Language Id <input type="number" name="languageId" value="${filmupdate.languageId}"/><br> 
-		Rental Duration <input type="number" name="rentalDuration" value="${filmupdate.rentalDuration}"/><br> 
-		Rental Rate <input type="number" name="rentalRate" step="any" value="${filmupdate.rentalRate}" /><br> 
-		Length <input type="number" name="length" value="${filmupdate.length}"/><br> 
-		Replacement Cost <input type="number" name="replacementCost" step="any" value="${filmupdate.replacementCost}"/><br> 
-		Rating <input type="text" name="rating" value="${filmupdate.rating}"/><br> 
-		Special Features <input type="text" name="specialFeatures" value="${filmupdate.specialFeatures}"/><br> 
-		
-		<input type="hidden" name="filmid" value="${filmupdate.id}"/>
+    <form action="updatefilmdetails.do" method="POST">
+        Title <input type="text" type="text" name = "title" value="${filmupdate.title}"/> <br> 
+        Description <input type="text" id ="description" name ="description" type="text" value="${filmupdate.description}" /><br> 
+        Release Year <input type="number" name="releaseYear" value="${filmupdate.releaseYear}"/><br> 
+        Language Id <input type="number" name="languageId" value="${filmupdate.languageId}"/><br> 
+        Rental Duration <input type="number" name="rentalDuration" value="${filmupdate.rentalDuration}"/><br> 
+        Rental Rate <input type="number" name="rentalRate" step="any" value="${filmupdate.rentalRate}" /><br> 
+        Length <input type="number" name="length" value="${filmupdate.length}"/><br> 
+        Replacement Cost <input type="number" name="replacementCost" step="any" value="${filmupdate.replacementCost}"/><br> 
+        Rating <input type="text" name="rating" value="${filmupdate.rating}"/><br> 
+        Special Features <input type="text" name="specialFeatures" value="${filmupdate.specialFeatures}"/><br> 
+        
+        <input type="hidden" name="filmid" value="${filmupdate.id}"/>
         <input type="submit" value="Update" />
     </form>
     </div>
->>>>>>> 24bfb4b365e40338fa4aa0e143334e76c91cefe4
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
