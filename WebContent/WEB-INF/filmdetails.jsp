@@ -28,32 +28,34 @@
 					</form:form>
 				</c:if>
 				<c:forEach items="${filmsbyid}" var="film">
-					<td>Film ID: <c:out value="${film.id}" />
+					<td> <span class = "headings">Film ID: </span><c:out value="${film.id}" />
 					<td><br>
-					<td>Title: <c:out value="${film.title}" />
+					<td> <span class = "headings">Title: </span><c:out value="${film.title}" />
 					<td><br>
-					<td>Description: <c:out value="${film.description}" />
+					<td> <span class = "headings">Description: </span><c:out value="${film.description}" />
 					<td><br>
-					<td>Release Year: <c:out value="${film.releaseYear}" />
+					<td> <span class = "headings">Release Year: </span><c:out value="${film.releaseYear}" />
 					<td><br>
-					<td>Language ID: <c:out value="${film.languageId}" />
+					<td> <span class = "headings">Language ID: </span><c:out value="${film.languageId}" />
 					<td><br>
-					<td>Rental Duration: <c:out value="${film.rentalDuration}" />
+					<td> <span class = "headings">Rental Duration: </span> <c:out value="${film.rentalDuration}" />
 					<td><br>
-					<td>Rental Rate: <c:out value="${film.rentalRate}" />
+					<td> <span class = "headings">Rental Rate: </span> <c:out value="${film.rentalRate}" />
 					<td><br>
-					<td>Length: <c:out value="${film.length}" />
+					<td> <span class = "headings">Length: </span><c:out value="${film.length}" />
 					<td><br>
-					<td>Replacement Cost: <c:out value="${film.replacementCost}" />
+					<td> <span class = "headings">Replacement Cost: </span><c:out value="${film.replacementCost}" />
 					<td><br>
-					<td>Rating: <c:out value="${film.rating}" />
+					<td> <span class = "headings">Rating: </span> <c:out value="${film.rating}" />
 					<td><br>
-					<td>Actors: <c:out value="${film.actors}" />
+					<td> <span class = "headings">Special Features: </span> <c:out value="${film.specialFeatures}" />
 					<td><br>
-					<td>Categories: <c:out value="${film.categories}" />
+					<td> <span class = "headings">Actors: </span><c:out value="${film.actors}" />
+					<td><br>
+					<td> <span class = "headings">Categories: </span><c:out value="${film.categories}" />
 					<td><br>
 					<td><br>
-					<td>Inventory: <c:out value="${film.inventoryItems}" />
+					<td> <span class = "headings">Inventory: </span> <c:out value="${film.inventoryItems}" />
 					<td><br> <br>
 					<td><form:form action="updatefilm.do" method="GET">
 							<input type="hidden" name="filmid" value="${film.id}" />

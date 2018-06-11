@@ -15,10 +15,11 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="main.css">
+<link rel="stylesheet" type="text/css" href="intro.css">
 <title>Add Film</title>
 </head>
 <body>
+<div class = "container">
 	<form:form action="filmdetails.do" method="POST" modelAttribute="film">
 		<form:label path="title">Title:</form:label>
 		<form:input path="title" />
@@ -58,13 +59,13 @@
 		<br />
 		<form:label path="specialFeatures">Special Features:</form:label>
 		<form:input path="specialFeatures" />
-		<form:errors path="specialFeatures" />
+		<form:errors path="specialFeatures" /><br>
 		<input type="submit" value="Add Film" />
-
 	</form:form>
 	<form:form action="intro.html">
 		<input type="submit" value="Back" />
 	</form:form>
+	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>

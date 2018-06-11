@@ -17,7 +17,7 @@
 <body>
 <div class = "container">
     <form action="updateactordetails.do" method="POST">
-        Actor ID <input type= "text" name="actorid" value="${actorupdate.id}" readonly/>
+        Actor ID <input type= "text" name="actorid" value="${actorupdate.id}" readonly/><br>
         First Name <input type="text" type="text" name = "firstName" value="${actorupdate.firstName}"/> <br> 
         Last Name <input type="text" id ="lastName" name ="lastName" type="text" value="${actorupdate.lastName}" /><br> 
         <input type="hidden" name="actorid" value="${actorupdate.id}"/>

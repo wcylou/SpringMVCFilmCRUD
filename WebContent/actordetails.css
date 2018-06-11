@@ -1,7 +1,7 @@
 html, body {
-	color: red;
+	color: darkviolet;
 	text-align: left;
-	background: url(joker.jpg);
+	background: url(mrbean.jpg);
 	height: 400px; 
     background-attachment: fixed;
     background-position: center;
@@ -9,13 +9,8 @@ html, body {
     background-size: cover;
 	font-family: futura;
 	padding-top:1em;
-	font-size: 1em;
 }
 
-.headings  {
-	color:RGB(73, 251, 53);
-	font-size: 1.4em;
-}
 form {
 	display: inline-block;
 }

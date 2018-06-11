@@ -17,17 +17,17 @@
 <body>
 <div class = "container">
     <form action="updatefilmdetails.do" method="POST">
-        Film ID <input type= "text" name="filmid" value="${filmupdate.id}" readonly/>
-        Title <input type="text" type="text" name = "title" value="${filmupdate.title}"/> <br> 
-        Description <input type="text" id ="description" name ="description" type="text" value="${filmupdate.description}" /><br> 
-        Release Year <input type="number" name="releaseYear" value="${filmupdate.releaseYear}"/><br> 
-        Language Id <input type="number" name="languageId" value="${filmupdate.languageId}"/><br> 
-        Rental Duration <input type="number" name="rentalDuration" value="${filmupdate.rentalDuration}"/><br> 
-        Rental Rate <input type="number" name="rentalRate" step="any" value="${filmupdate.rentalRate}" /><br> 
-        Length <input type="number" name="length" value="${filmupdate.length}"/><br> 
-        Replacement Cost <input type="number" name="replacementCost" step="any" value="${filmupdate.replacementCost}"/><br> 
-        Rating <input type="text" name="rating" value="${filmupdate.rating}"/><br> 
-        Special Features <input type="text" name="specialFeatures" value="${filmupdate.specialFeatures}"/><br> 
+       <span class = "headings">Film ID: </span><input type= "text" name="filmid" value="${filmupdate.id}" readonly/><br>
+        <span class = "headings">Title: </span> <input type="text" type="text" name = "title" value="${filmupdate.title}"/> <br> 
+        <span class = "headings">Description: </span> <input type="text" id ="description" name ="description" type="text" value="${filmupdate.description}" /><br> 
+        <span class = "headings">Release Year: </span><input type="number" name="releaseYear" value="${filmupdate.releaseYear}"/><br> 
+        <span class = "headings">Language ID: </span> <input type="number" name="languageId" value="${filmupdate.languageId}"/><br> 
+         <span class = "headings">Rental Duration: </span>  <input type="number" name="rentalDuration" value="${filmupdate.rentalDuration}"/><br> 
+        <span class = "headings">Rental Rate: </span><input type="number" name="rentalRate" step="any" value="${filmupdate.rentalRate}" /><br> 
+        <span class = "headings">Length: </span> <input type="number" name="length" value="${filmupdate.length}"/><br> 
+        <span class = "headings">Replacement Cost: </span><input type="number" name="replacementCost" step="any" value="${filmupdate.replacementCost}"/><br> 
+        <span class = "headings">Rating: </span>  <input type="text" name="rating" value="${filmupdate.rating}"/><br> 
+        <span class = "headings">Special Feature: </span>   <input type="text" name="specialFeatures" value="${filmupdate.specialFeatures}"/><br> 
         <input type="hidden" name="filmid" value="${filmupdate.id}"/>
         <input type="submit" value="Update" />
     </form>
