@@ -1,6 +1,6 @@
 ## Spring MVC Film C.R.U.D. Project
 ## Week 7 Pair Skill Distillery
-###Wilson Lou and Jeremy Botta
+### Wilson Lou and Jeremy Botta
 
 ### Overview
 - This project is our first full-stack Spring MVC project that allows users to create, update, retrieve, and delete films/actors in a database.
