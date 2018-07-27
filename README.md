@@ -2,6 +2,8 @@
 ## Week 7 Pair Skill Distillery
 ### Wilson Lou and Jeremy Botta
 
+http://18.219.168.192:8080/MVCFilmSite/
+
 ### Overview
 - This project is our first full-stack Spring MVC project that allows users to create, update, retrieve, and delete films/actors in a database.
 - Added in intro and end pages using JavaScript for our film theme!
